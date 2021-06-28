@@ -8,6 +8,8 @@ use App\Http\Requests\BackEnd\Book\FormUpdateBookRequest;
 use App\Http\Services\AuthorService;
 use App\Http\Services\BookService;
 use App\Http\Services\CategoryService;
+use App\Models\Author;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -26,15 +28,15 @@ class BookController extends Controller
     public function index()
     {
         $books = $this->bookService->getAll();
-        $categories = $this->categoryService->getAll();
+        $categories = Category::all();
         return view('backend.book.list', compact('books', 'categories'));
 
     }
 
     public function create()
     {
-        $authors = $this->authorService->getAll();
-        $categories = $this->categoryService->getAll();
+        $authors = Author::all();
+        $categories = Category::all();
         return view('backend.book.create', compact('authors', 'categories'));
     }
     public function store(FormCreateBookRequest $request)
@@ -104,8 +106,9 @@ class BookController extends Controller
     public function filter(Request $request)
     {
         $books =  $this->categoryService->filterByCategory($request);
-        $categories = $this->categoryService->getAll();
-        return view('backend.book.list', compact('books','categories'));
+        $categories = Category::all();
+        $totalBooksFiltered = count($books);
+        return view('backend.book.list', compact('books','categories', 'totalBooksFiltered'));
     }
 
 }

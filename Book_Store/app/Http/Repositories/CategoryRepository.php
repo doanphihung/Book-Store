@@ -70,8 +70,9 @@ class CategoryRepository
 
     public function filterByCategory($request)
     {
-        $category = $this->categoryModel->findOrFail($request->select);
-        $books = $category->books;
+        $category = $this->categoryModel->with('books')->findOrFail($request->select);
+        // Lấy tất cả books của category tìm được (kể cả softDelete) -> thì phải tạo thêm 1 hàm quan hệ ở relationship trong model Category)
+        $books = $category->booksWithTrashed()->orderBy('id', 'desc')->paginate(3); // ở form gửi lên tìm id của category phải dùng GET mới phân trang được;
         return $books;
 
     }

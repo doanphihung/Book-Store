@@ -145,7 +145,7 @@
                         <li class="app-sidebar__heading">Components</li>
                         <li class="">
                             <a href="" aria-expanded="false">
-                                <i class="metismenu-icon pe-7s-diamond"></i>
+                                <i class="metismenu-icon pe-7s-bookmarks"></i>
                                 Book
                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>
@@ -168,7 +168,7 @@
                         </li>
                         <li class="">
                             <a href="" aria-expanded="false">
-                                <i class="metismenu-icon pe-7s-diamond"></i>
+                                <i class="metismenu-icon pe-7s-users"></i>
                                 Author
                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>
@@ -191,7 +191,7 @@
                         </li>
                         <li class="">
                             <a href="" aria-expanded="false">
-                                <i class="metismenu-icon pe-7s-diamond"></i>
+                                <i class="metismenu-icon pe-7s-menu"></i>
                                 Category
                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>

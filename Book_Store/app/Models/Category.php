@@ -17,4 +17,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Book::class, 'book_category', 'category_id', 'book_id');
     }
+        // Lấy tất cả books của category (cả những book bị softDelete) ---> thêm withTrashed() vào cuối.
+    public function booksWithTrashed()
+    {
+        return $this->belongsToMany(Book::class, 'book_category', 'category_id', 'book_id')->withTrashed();
+    }
 }

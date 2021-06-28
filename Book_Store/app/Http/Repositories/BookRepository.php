@@ -17,7 +17,7 @@ class BookRepository
 
     public function getAll()
     {
-            return $this->bookModel->withTrashed()->with('categories', 'authors')->orderBy('id', 'desc')->paginate(2);
+            return $this->bookModel->withTrashed()->with('categories', 'authors')->orderBy('id', 'desc')->paginate(5);
     }
 
     public function create($book, $authors, $categories)

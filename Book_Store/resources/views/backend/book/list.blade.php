@@ -1,13 +1,19 @@
+
 @extends('backend.layout.master')
 @section('title', 'List book')
 @section('content')
     <div class="card-body"><h5 class="card-title">List book</h5>
         <div style="float: left">
+            <div>
             <a href="{{route('book.create')}}">
                 <button class="mb-2 mr-2 btn btn-secondary">Add book</button>
             </a>
             <button class="mb-2 mr-2 btn btn-light" data-toggle="modal" data-target="#exampleModal">Filter
             </button>
+            </div>
+            @if(isset($totalBooksFiltered))
+            <div><small class="form-text text-muted">FOUND {{$totalBooksFiltered}} BOOKS:</small></div>
+            @endif
         </div>
 
         <div style="float: right; margin-bottom: 7px">
@@ -82,7 +88,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-danger td-list-book">No data!</td>
+                    <td colspan="10" class="text-danger td-list-book">No data!</td>
                 </tr>
             @endforelse
             </tbody>
@@ -129,7 +135,7 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form class="modal-content" action="{{route('book.filter')}}" method="post">
+            <form class="modal-content" action="{{route('book.filter')}}" method="get">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
