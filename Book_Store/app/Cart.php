@@ -2,14 +2,14 @@
 namespace App;
 
 class Cart {
-    public $books = null;
+    public $headsBook = null;
     public $totalPrice = 0;
     public $totalQuantity = 0;
 
     public function __construct($cart)
     {
         if ($cart) {
-            $this->books = $cart->books;
+            $this->headsBook = $cart->headsBook;
             $this->totalPrice = $cart->totalPrice;
             $this->totalQuantity = $cart->totalQuantity;
         }
@@ -17,21 +17,29 @@ class Cart {
 
     public function addCart($book, $id)
     {
-       $newBook = [
+       $newHeadBook = [
            'quantity' => 0,
            'price' => $book->price,
            'bookInfo' => $book,
        ];
 
-       if ($this->books) {
-           if (array_key_exists($id, $this->books)) {
-               $newBook = $this->books[$id];
+       if ($this->headsBook) {
+           if (array_key_exists($id, $this->headsBook)) {
+               $newHeadBook = $this->headsBook[$id];
            }
        }
-       $newBook['quantity']++;
-       $newBook['price'] = $newBook['quantity'] * $book->price;
-       $this->books[$id] = $newBook;
+       $newHeadBook['quantity']++;
+       $newHeadBook['price'] = $newHeadBook['quantity'] * $book->price;
+       $this->headsBook[$id] = $newHeadBook;
        $this->totalPrice += $book->price;
        $this->totalQuantity++;
+    }
+
+    public function deleteHeadBook($id)
+    {
+        $this->totalQuantity -= $this->headsBook[$id]['quantity'];
+        $this->totalPrice -= $this->headsBook[$id]['price'];
+        unset($this->headsBook[$id]);
+
     }
 }

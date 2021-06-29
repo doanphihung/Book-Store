@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>@yield('title')</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="{{asset('page/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -14,6 +15,7 @@
     <link href="{{asset('page/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/responsive.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/style.css')}}" rel="stylesheet">
+
 <!--[if lt IE 9]>
     <script src="{{asset('page/js/html5shiv.js')}}"></script>
     <script src="{{asset('page/js/respond.min.js')}}"></script>
@@ -38,7 +40,7 @@
             <div class="row">
                 <div class="col-sm-2">
                     <div class="logo pull-left">
-                        <a href="{{route('store.homepage')}}"><img width="140px" height="50px" src="{{asset('page/images/logo2.png')}}" alt=""/></a>
+                        <a href="{{route('store.homepage')}}"><img width="80%" src="{{asset('page/images/logo/lo.png')}}" alt=""/></a>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -49,8 +51,8 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">Vietnamese</a></li>
+                                <li><a href="#">EN</a></li>
+                                <li><a href="#">VI</a></li>
                             </ul>
                         </div>
                     </div>
@@ -63,7 +65,7 @@
                             <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="{{route('cart.details')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="{{route('cart.details')}}"><i class="fa fa-shopping-cart"></i>Cart</a></li>
                             <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>
@@ -243,8 +245,8 @@
                         <h2>Price Range</h2>
                         <div class="well text-center">
                             <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                   data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br/>
-                            <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                                   data-slider-step="5" data-slider-value="[10, 100]" id="sl2"><br/>
+                            <b class="pull-left">$ 0</b> <b class="pull-right"> $ 600</b>
                         </div>
                     </div><!--/price-range-->
 
@@ -338,12 +340,23 @@
 
 </footer><!--/Footer-->
 @yield('javascript')
-<script src="{{asset('page/js/jquery.js')}}"></script>
+{{--<script src="{{asset('page/js/jquery.js')}}"></script>--}}
 <script src="{{asset('page/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('page/js/jquery.scrollUp.min.js')}}"></script>
 <script src="{{asset('page/js/price-range.js')}}"></script>
 <script src="{{asset('page/js/jquery.prettyPhoto.js')}}"></script>
 <script src="{{asset('page/js/main.js')}}"></script>
+<script src="{{asset('page/js/myjs.js')}}"></script>
+{{--Alertify--}}
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+{{--ENDalert--}}
 </body>
 @jquery
 @toastr_js

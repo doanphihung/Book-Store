@@ -1,7 +1,7 @@
 @extends('pages.layout.master')
 @section('title', 'Book details')
 @section('content')
-    <div class="product-details"><!--product-details-->
+    <div class="product-details">
         <div class="col-sm-5">
             <div class="view-product">
                 <img src="{{asset("storage/upload_images/images_book/$book->image")}}" alt="">
@@ -12,12 +12,12 @@
 
                 <h2>{{$book->name}}</h2>
                 <span>
-                    <span>{{$book->price}} $</span>
+                    <span>{{number_format($book->price)}} $</span>
                     <label>Quantity:</label>
                     <input type="text" value="{{$book->amount}}" disabled>
                     <button type="button" class="btn btn-fefault cart">
                         <i class="fa fa-shopping-cart"></i>
-                        Add to cart
+                        <a style="color: white" class="add-to-cart" data-id = {{$book->id}} >Add to cart</a>
                     </button>
                 </span>
                 <p><b>Category:</b>
@@ -34,7 +34,10 @@
                     No data!
                     @endforelse
                 </p>
+              <p><b>Content:</b>{!!$book->content!!}</p>
             </div>
+
         </div>
+
     </div>
 @endsection

@@ -5,11 +5,16 @@ use App\Http\Controllers\BackEnd\BookController;
 use App\Http\Controllers\BackEnd\CategoryController;
 use App\Http\Controllers\BackEnd\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Page\BookControllerl;
+
+
+Route::get('/login', [\App\Http\Controllers\Authentication\AuthController::class, 'showFormLogin'])->name('login.showFormLogin');
+Route::post('/login', [\App\Http\Controllers\Authentication\AuthController::class, 'login'])->name('login.submit');
+Route::get('/get', [\App\Http\Controllers\Authentication\AuthController::class, 'logout'])->name('logout');
 
 
 // Backend
-Route::group(['prefix' => 'admin'], function () {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+//Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     //Book
     Route::group(['prefix' => 'books'], function () {
@@ -45,16 +50,12 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 // Pages
-Route::group(['prefix' => 'book-store'], function () {
-    Route::get('/', [\App\Http\Controllers\Page\BookController::class, 'homepage'])->name('store.homepage');
-    Route::get('/list-book', [\App\Http\Controllers\Page\BookController::class, 'getAllBooks'])->name('store.list');
-    Route::get('/{id}/book-details', [\App\Http\Controllers\Page\BookController::class, 'getDetails'])->name('book.getDetails');
-    Route::get('/{id}/add-cart', [\App\Http\Controllers\Page\CartController::class, 'addCart'])->name('book.addCart');
-    Route::get('/cart-details', [\App\Http\Controllers\Page\CartController::class, 'cartDetails'])->name('cart.details');
-});
+    Route::group(['prefix' => 'book-store'], function () {
+        Route::get('/', [\App\Http\Controllers\Page\BookController::class, 'homepage'])->name('store.homepage');
+        Route::get('/list-book', [\App\Http\Controllers\Page\BookController::class, 'getAllBooks'])->name('store.list');
+        Route::get('/{id}/book-details', [\App\Http\Controllers\Page\BookController::class, 'getDetails'])->name('book.getDetails');
+        Route::get('/{id}/add-cart', [\App\Http\Controllers\Page\CartController::class, 'addCart'])->name('book.addCart');
+        Route::get('/cart-details', [\App\Http\Controllers\Page\CartController::class, 'cartDetails'])->name('cart.details');
+        Route::get('/{id}/cart-delete', [\App\Http\Controllers\Page\CartController::class, 'deleteHeadBook'])->name('cart.deleteHeadBook');
+    });
 
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

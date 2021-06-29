@@ -112,7 +112,6 @@
         $(document).ready(function () {
             $('#search-book').keyup(function () {
                 let keyWord = $(this).val();
-                console.log(keyWord)
                 $.ajax({
                     type: "GET",
                     url: "{{route('book.search')}}",

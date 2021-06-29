@@ -8,6 +8,7 @@ use App\Http\Requests\BackEnd\Author\FormUpdateAuthorRequest;
 use App\Http\Services\AuthorService;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthorController extends Controller
 {

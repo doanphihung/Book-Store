@@ -74,19 +74,15 @@
                                 <div class="btn-group">
                                     <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                        class="p-0 btn">
-                                        <img width="42" class="rounded-circle"
-                                             src="{{asset('backend/images/avatars/1.jpg')}}" alt="">
+                                        <img width="40px" height="35px" class="rounded-circle"
+                                             src="{{asset('storage/upload_images/images_user/'. \Illuminate\Support\Facades\Auth::user()->avatar)}}" alt="">
                                         <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                     </a>
                                     <div tabindex="-1" role="menu" aria-hidden="true"
                                          class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                                          style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(60px, 44px, 0px);">
-                                        <button type="button" tabindex="0" class="dropdown-item">User Account</button>
-                                        <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                        <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                        <button type="button" tabindex="0" class="dropdown-item">Actions</button>
-                                        <div tabindex="-1" class="dropdown-divider"></div>
-                                        <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                        <button type="button" tabindex="0" class="dropdown-item">{{\Illuminate\Support\Facades\Auth::user()->name}}</button>
+                                        <a href="{{route('logout')}}"><button type="button" tabindex="0" class="dropdown-item" style="color: deepskyblue" >Log out</button></a>
                                     </div>
                                 </div>
                             </div>

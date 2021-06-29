@@ -16,7 +16,7 @@
                                         <img class="book-rcm-homepage" src="{{asset("storage/upload_images/images_book/$book->image")}}" alt=""/>
                                         <h2>${{$book->price}}</h2>
                                         <p>{{$book->name}}</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                        <a href="javascript:" class="btn btn-default add-to-cart" data-id = {{$book->id}}><i
                                                 class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@
                                         <img class="book-rcm-homepage" src="{{asset("storage/upload_images/images_book/$book->image")}}" alt=""/>
                                         <h2>${{$book->price}}</h2>
                                         <p>{{$book->name}}</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                        <a href="javascript:" class="btn btn-default add-to-cart" data-id = {{$book->id}}><i
                                                 class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                 </div>
@@ -66,23 +66,9 @@
                             <img  class="book-hot-homepage" src="{{asset("storage/upload_images/images_book/$book->image")}}" alt="">
                             <h2>${{$book->price}}</h2>
                             <p>{{$book->name}}</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
+                            <a class="btn btn-default add-to-cart" data-id = {{$book->id}}><i class="fa fa-shopping-cart"></i>Add
                                 to cart</a>
                         </div>
-                        <div class="product-overlay">
-                            <div class="overlay-content">
-                                <h2>${{$book->price}}</h2>
-                                <p>{{$book->name}}</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i
-                                        class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
