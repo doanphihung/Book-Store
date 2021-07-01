@@ -129,7 +129,6 @@
          // END SEARCH
     </script>
 @endsection
-
 @section('modal')
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          style="display: none;" aria-hidden="true">

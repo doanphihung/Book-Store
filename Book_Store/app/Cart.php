@@ -2,7 +2,7 @@
 namespace App;
 
 class Cart {
-    public $headsBook = null;
+    public $headsBook = [];
     public $totalPrice = 0;
     public $totalQuantity = 0;
 
@@ -37,9 +37,30 @@ class Cart {
 
     public function deleteHeadBook($id)
     {
-        $this->totalQuantity -= $this->headsBook[$id]['quantity'];
-        $this->totalPrice -= $this->headsBook[$id]['price'];
-        unset($this->headsBook[$id]);
+        if ($this->headsBook) {
+            if (array_key_exists($id, $this->headsBook)) {
+                $this->totalQuantity -= $this->headsBook[$id]['quantity'];
+                $this->totalPrice -= $this->headsBook[$id]['price'];
+                unset($this->headsBook[$id]);
+            }
+        }
+    }
 
+    public function cartQuantityUp($id)
+    {
+        $this->headsBook[$id]['quantity']++ ;
+        $this->headsBook[$id]['price'] += $this->headsBook[$id]['bookInfo']->price;
+        $this->totalPrice += $this->headsBook[$id]['bookInfo']->price;
+        $this->totalQuantity++;
+    }
+
+    public function cartQuantityDown($id)
+    {
+        if ($this->headsBook[$id]['quantity'] > 0) {
+            $this->headsBook[$id]['quantity']--;
+            $this->headsBook[$id]['price'] -= $this->headsBook[$id]['bookInfo']->price;
+            $this->totalPrice -= $this->headsBook[$id]['bookInfo']->price;
+            $this->totalQuantity--;
+        }
     }
 }

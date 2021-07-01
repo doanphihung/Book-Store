@@ -33,5 +33,10 @@ class BookRepository
         return $this->bookModel->with('authors', 'categories')->findOrFail($id);
     }
 
+    public function search($keyWord)
+    {
+        $books = $this->bookModel->with('categories', 'authors')->where('name', 'LIKE', "%$keyWord%")->get();
+        return $books;
+    }
 
 }

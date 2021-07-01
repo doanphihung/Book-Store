@@ -25,7 +25,7 @@ class AuthController extends Controller
         ];
         if (Auth::attempt($data)) {
             Toastr::success('Welcome ' . Auth::user()->name . '!');
-           return redirect()->route('admin.dashboard');
+           return redirect()->route('store.homepage');
         }
         session()->flash('login-error', 'Tài khoản hoặc mật khẩu không chính xác');
         return redirect()->route('login.showFormLogin');

@@ -3,9 +3,6 @@
 namespace App\Http\Services\Page;
 
 use App\Http\Repositories\Page\BookRepository;
-use App\Models\Book;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class BookService
 {
@@ -52,5 +49,10 @@ class BookService
     {
         $book = $this->bookRepo->getById($id);
         $this->bookRepo->restore($book);
+    }
+
+    public function search($keyWord)
+    {
+        return $this->bookRepo->search($keyWord);
     }
 }

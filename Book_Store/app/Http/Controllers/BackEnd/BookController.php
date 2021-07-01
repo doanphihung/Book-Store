@@ -50,6 +50,7 @@ class BookController extends Controller
     }
         public function store(FormCreateBookRequest $request)
         {
+            $this->isPermission('admin-manage');
 
             $this->bookService->create($request);
             return redirect()->route('book.index');
@@ -79,7 +80,7 @@ class BookController extends Controller
 
         public function update(FormUpdateBookRequest $request, $id)
         {
-
+            $this->isPermission('admin-manage');
 
             $this->bookService->update($request, $id);
             return redirect()->route("book.index");
@@ -96,6 +97,7 @@ class BookController extends Controller
 
         public function softDelete($id)
         {
+            $this->isPermission('admin-manage');
 
             $this->bookService->softDelete($id);
             return redirect()->route('book.index');
@@ -103,6 +105,8 @@ class BookController extends Controller
 
         public function restore($id)
         {
+            $this->isPermission('admin-manage');
+
             $this->bookService->restore($id);
             return redirect()->route('book.index');
         }

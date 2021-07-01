@@ -35,5 +35,15 @@ class AuthServiceProvider extends ServiceProvider
                 return false;
             }
         });
+
+        Gate::define('can-view-DashBoard', function ($user) {
+            $roles = $user->roles;
+            foreach ($roles as $role) {
+                if ($role->id === RoleConstant::ROLE_ADMIN || $role->id === RoleConstant::ROLE_USER) {
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

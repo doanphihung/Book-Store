@@ -33,4 +33,11 @@ class BookController extends Controller
       $book = $this->bookService->getDetails($id);
       return view('pages.book.details', compact('book'));
     }
+
+    public function search(Request $request)
+    {
+        $keyWord = $request->search;
+        $books = $this->bookService->search($keyWord);
+        return response()->json($books);
+    }
 }

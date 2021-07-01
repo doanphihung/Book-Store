@@ -7,6 +7,7 @@
     <meta name="author" content="">
     <title>@yield('title')</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="https://pngimage.net/wp-content/uploads/2018/05/book-store-png-6.png">
     <link href="{{asset('page/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -40,7 +41,9 @@
             <div class="row">
                 <div class="col-sm-2">
                     <div class="logo pull-left">
-                        <a href="{{route('store.homepage')}}"><img width="80%" src="{{asset('page/images/logo/lo.png')}}" alt=""/></a>
+                        <a href="{{route('store.homepage')}}"><img width="80%"
+                                                                   src="{{asset('page/images/logo/lo.png')}}"
+                                                                   alt=""/></a>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -62,10 +65,12 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="{{route('cart.details')}}"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+                            @can('can-view-DashBoard')
+                            <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-user"></i><span style="color: orange">Amin</span></a></li>
+                            @endcan
+                            <li><a href="{{route('cart.details')}}"><i class="fa fa-shopping-cart"></i>Cart<span
+                                        id="cart-master-icon">@if(session()->has('cart'))
+                                            ({{session('cart')->totalQuantity}})@else (0) @endif </span></a></li>
                             <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>
@@ -89,23 +94,14 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="{{route('store.homepage')}}" class="active">Home</a></li>
+                            <li><a href="{{route('store.homepage')}}">Home</a></li>
                             <li><a href="{{route('store.list')}}">Shop</a></li>
-
-                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="blog.html">Blog List</a></li>
-                                    <li><a href="blog-single.html">Blog Single</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <input type="text" placeholder="Search" id="search-master"/>
                     </div>
                 </div>
             </div>
@@ -113,152 +109,7 @@
     </div><!--/header-bottom-->
 </header><!--/header-->
 
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="left-sidebar">
-                    <h2>Category</h2>
-                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Sportswear
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="sportswear" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="#">Nike </a></li>
-                                        <li><a href="#">Under Armour </a></li>
-                                        <li><a href="#">Adidas </a></li>
-                                        <li><a href="#">Puma</a></li>
-                                        <li><a href="#">ASICS </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Mens
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="mens" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="#">Fendi</a></li>
-                                        <li><a href="#">Guess</a></li>
-                                        <li><a href="#">Valentino</a></li>
-                                        <li><a href="#">Dior</a></li>
-                                        <li><a href="#">Versace</a></li>
-                                        <li><a href="#">Armani</a></li>
-                                        <li><a href="#">Prada</a></li>
-                                        <li><a href="#">Dolce and Gabbana</a></li>
-                                        <li><a href="#">Chanel</a></li>
-                                        <li><a href="#">Gucci</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Womens
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="womens" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="#">Fendi</a></li>
-                                        <li><a href="#">Guess</a></li>
-                                        <li><a href="#">Valentino</a></li>
-                                        <li><a href="#">Dior</a></li>
-                                        <li><a href="#">Versace</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Kids</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Fashion</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Households</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Interiors</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Clothing</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Bags</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Shoes</a></h4>
-                            </div>
-                        </div>
-                    </div><!--/category-products-->
-
-                    <div class="brands_products"><!--brands_products-->
-                        <h2>Brands</h2>
-                        <div class="brands-name">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                                <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                                <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-                                <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-                                <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                                <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                                <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
-                            </ul>
-                        </div>
-                    </div><!--/brands_products-->
-
-                    <div class="price-range"><!--price-range-->
-                        <h2>Price Range</h2>
-                        <div class="well text-center">
-                            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                   data-slider-step="5" data-slider-value="[10, 100]" id="sl2"><br/>
-                            <b class="pull-left">$ 0</b> <b class="pull-right"> $ 600</b>
-                        </div>
-                    </div><!--/price-range-->
-
-                </div>
-            </div>
-            <div class="col-sm-9 padding-right">
-                @yield('content')
-            </div>
-
-        </div>
-    </div>
-</section>
+@yield('content')
 
 <footer id="footer"><!--Footer-->
     <div class="footer-widget">

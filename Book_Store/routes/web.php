@@ -4,7 +4,10 @@ use App\Http\Controllers\BackEnd\AuthorController;
 use App\Http\Controllers\BackEnd\BookController;
 use App\Http\Controllers\BackEnd\CategoryController;
 use App\Http\Controllers\BackEnd\AdminController;
+use App\Http\Controllers\Page\CartController;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 Route::get('/login', [\App\Http\Controllers\Authentication\AuthController::class, 'showFormLogin'])->name('login.showFormLogin');
@@ -12,9 +15,8 @@ Route::post('/login', [\App\Http\Controllers\Authentication\AuthController::clas
 Route::get('/get', [\App\Http\Controllers\Authentication\AuthController::class, 'logout'])->name('logout');
 
 
-// Backend
+// BACKEND
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-//Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     //Book
     Route::group(['prefix' => 'books'], function () {
@@ -49,13 +51,33 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     });
 });
 
-// Pages
-    Route::group(['prefix' => 'book-store'], function () {
-        Route::get('/', [\App\Http\Controllers\Page\BookController::class, 'homepage'])->name('store.homepage');
-        Route::get('/list-book', [\App\Http\Controllers\Page\BookController::class, 'getAllBooks'])->name('store.list');
-        Route::get('/{id}/book-details', [\App\Http\Controllers\Page\BookController::class, 'getDetails'])->name('book.getDetails');
-        Route::get('/{id}/add-cart', [\App\Http\Controllers\Page\CartController::class, 'addCart'])->name('book.addCart');
-        Route::get('/cart-details', [\App\Http\Controllers\Page\CartController::class, 'cartDetails'])->name('cart.details');
-        Route::get('/{id}/cart-delete', [\App\Http\Controllers\Page\CartController::class, 'deleteHeadBook'])->name('cart.deleteHeadBook');
-    });
+// PAGE
+Route::get('/', [\App\Http\Controllers\Page\BookController::class, 'homepage'])->name('store.homepage');
+Route::group(['prefix' => 'books'], function () {
+    Route::get('/', [\App\Http\Controllers\Page\BookController::class, 'getAllBooks'])->name('store.list');
+    Route::get('/{id}/details', [\App\Http\Controllers\Page\BookController::class, 'getDetails'])->name('book.getDetails');
+    Route::get('/search-page', [\App\Http\Controllers\Page\BookController::class, 'search'])->name('book.searchMaster');
+});
+
+Route::group(['prefix' => 'author'], function () {
+    Route::get('/{id}/filter-by-author', [\App\Http\Controllers\Page\AuthorController::class, 'getAllBookByAuthor'])->name('book.by-categoryp');
+});
+
+Route::group(['prefix' => 'category'], function () {
+    Route::get('/{id}/filter-by-category', [\App\Http\Controllers\Page\CategoryController::class, 'getAllBookByCategory'])->name('book.by-author');
+});
+
+Route::group(['prefix' => 'cart'], function () {
+    Route::get('/{id}/add', [CartController::class, 'addCart'])->name('book.addCart');
+    Route::get('/details', [CartController::class, 'cartDetails'])->name('cart.details');
+    Route::get('/{id}/delete', [CartController::class, 'deleteHeadBook'])->name('cart.deleteHeadBook');
+    Route::get('/{id}/quantity-up', [CartController::class, 'cartQuantityUp'])->name('cart.quantity-up');
+    Route::get('/{id}/quantity-down', [CartController::class, 'cartQuantityDown'])->name('cart.quantity-down');
+});
+Route::get('/checkout', [\App\Http\Controllers\Page\CartController::class, 'checkout'])->name('checkout');
+
+
+
+
+
 

@@ -1,12 +1,14 @@
 $(document).ready(function () {
     let origin = window.origin;
     // AJAX ADD CART
-    $('a.add-to-cart').click(function () {
+    $('body').on('click', 'a.add-to-cart', function () {
         let id = $(this).attr('data-id');
+        console.log(id);
         $.ajax({
-            url: origin + '/book-store/' + id + '/add-cart',
+            url: origin + '/cart/' + id + '/add',
             method: 'GET',
             success: function (data) {
+                $('span#cart-master-icon').html('(' + data.totalQuantity + ')');
                 alertify.success('Add book to cart success!');
             },
             error: function (err) {
@@ -17,39 +19,20 @@ $(document).ready(function () {
     // EndAddCart
 
     // DeleteItems
-    $('body').on('click', '.cart_quantity_delete', function (){  // Mỗi lần viết lại JS cần thềm $('body) để tìm lại cả trang.
+    $('body').on('click', '.cart_quantity_delete', function () {  // Mỗi lần viết lại JS cần thềm $('body) để tìm lại cả trang.
         let id = $(this).attr('data-id');
         $.ajax({
-            url: origin + '/book-store/' + id + '/cart-delete',
+            url: origin + '/cart/' + id + '/delete',
             method: 'GET',
             success: function (data) {
                 let cart = data;
+                console.log(data);
                 let totalPrice = data.totalPrice;
-                let headsBook = data.headsBook;
-                let html = '';
-                if (data === null) {
-                    html += '<th class="text-danger" style="text-align: center" colspan="5">No item!</th>';
-                }else {
-                    $.each(headsBook, function (index, headBook) {
-                    html += '<tr>';
-                    html += '<td class="cart_product"> <a href=""><img class="img-cart"' +
-                        'src="/storage/upload_images/images_book/' + headBook.bookInfo.image + '"' +
-                        'alt=""></a></td> ';
-                    html += '<td class="cart_description"><h4><a href="">' + headBook.bookInfo.name + '</a></h4></td>';
-                    html += '<td class="cart_description">' +
-                        '<p>$' + headBook.bookInfo.price + '</p></td>';
-                    html += '<td class="cart_quantity"> <div class="cart_quantity_button"> <a class="cart_quantity_up" href=""> + </a>' +
-                        '<input  disabled class="cart_quantity_input" type="text" name="quantity"' +
-                        'value="' + headBook.quantity + '"' + 'autocomplete="off" size="2"><a class="cart_quantity_down" href=""> - </a></div></td>';
-                    html += ' <td class="cart_total"><p class="cart_total_price">$' + headBook['price'] + '</p></td>';
-                    html += ' <td class="cart_delete"><a class="cart_quantity_delete" ' + 'data-id="' + headBook.bookInfo.id + '"' + 'href="javascript:"><i class="fa fa-times"></i></a></td>';
-                    html += '</tr>';
-                });
-            };
-                $('#table-items').empty();
-                $('#table-items').html(html);
-                $('#total-quantity-cart').html(data.totalQuantity);
-                $('#total-price-cart').html(data.totalPrice);
+                let totalQuantity = data.totalQuantity;
+                $('span#cart-master-icon').html('(' + data.totalQuantity + ')');
+                $('tr#cart_delete_' + id).remove();
+                $('#total-quantity-cart').html(totalQuantity);
+                $('#total-price-cart').html('$' + totalPrice);
                 alertify.success('Remove book from cart success!');
             },
             error: function (err) {
@@ -58,6 +41,166 @@ $(document).ready(function () {
         });
     });
     // EndDeleteItems
+
+    // cart_quantity_up
+    $('a.cart_quantity_up').click(function () {
+        let id = $(this).attr('data-id');
+        $.ajax({
+            url: origin + '/cart/' + id + '/quantity-up',
+            method: 'GET',
+            success: function (data) {
+                let cart = data;
+                let totalPrice = cart.totalPrice;
+                let totalQuantity = cart.totalQuantity;
+                $('#value-quantity-' + id).val(cart.headsBook[id].quantity);
+                $('#total-headBook-' + id).html('$' + cart.headsBook[id].price);
+                $('#total-quantity-cart').html(totalQuantity);
+                $('#total-price-cart').html('$' + totalPrice);
+                $('span#cart-master-icon').html('(' + data.totalQuantity + ')');
+            },
+            error: function (err) {
+            }
+        });
+    });
+    //end_up
+
+    // cart_quantity_down
+    $('a.cart_quantity_down').click(function () {
+        let id = $(this).attr('data-id');
+        $.ajax({
+            url: origin + '/cart/' + id + '/quantity-down',
+            method: 'GET',
+            success: function (data) {
+                let cart = data;
+                let totalPrice = cart.totalPrice;
+                let totalQuantity = cart.totalQuantity;
+                $('#value-quantity-' + id).val(cart.headsBook[id].quantity);
+                $('#total-headBook-' + id).html('$' + cart.headsBook[id].price);
+                $('#total-quantity-cart').html(totalQuantity);
+                $('#total-price-cart').html('$' + totalPrice);
+                $('span#cart-master-icon').html('(' + data.totalQuantity + ')');
+            },
+            error: function (err) {
+            }
+        });
+    });
+    //end_down
+
+    //FilterByAuthor
+    $('body').on('click', 'a.authors-nav-choose', function () {
+        let id = $(this).attr('data-id');
+        $.ajax({
+            url: origin + '/author/' + id + '/filter-by-author',
+            method: 'GET',
+            success: function (data) {
+                let books = data;
+                if (data.length) {
+                    html = '<div class="features_items"><h2 class="title text-center">Total books</h2>';
+                    $.each(books, function (index, book) {
+                        html += '<div class="col-sm-4"><div class="product-image-wrapper"><div class="single-products"><div class="productinfo text-center">';
+                        html += ' <a href="' + '/books/' + book.id + '/details' + '"><img class="book-list-store" src="/storage/upload_images/images_book/';
+                        html += book.image + '" alt=""></a>' + ' <h2>' + book.price + '</h2>' + ' <p>' + book.name + '</p>';
+                        html += '<a href="javascript:" class="btn btn-default add-to-cart" data-id="' + '33' + '"><i class="fa fa-shopping-cart"></i>Add to cart</a>';
+                        html += '</div></div></div></div>'
+                    });
+                    html += '</div>';
+                    $('div.body-list-book').html(html);
+                    alertify.success('Found ' + data.length + ' books!');
+
+                } else {
+                    html = '<h2 class=" text-center text-danger">No book!</h2>';
+                    $('div.body-list-book').html(html);
+                    alertify.error('Not found!');
+                }
+            },
+            error: function (err) {
+                alertify.error('No data!');
+            }
+        });
+    });
+    //EndFilterAuthor
+
+    //FilterByCategory
+    $('body').on('click', 'a.category-nav-choose', function () {
+        let id = $(this).attr('data-id');
+        $.ajax({
+            url: origin + '/category/' + id + '/filter-by-category',
+            method: 'GET',
+            success: function (data) {
+                let books = data;
+                if (data.length) {
+                    html = '<div class="features_items"><h2 class="title text-center">Total books</h2>';
+                    $.each(books, function (index, book) {
+                        html += '<div class="col-sm-4"><div class="product-image-wrapper"><div class="single-products"><div class="productinfo text-center">';
+                        html += ' <a href="' + '/books/' + book.id + '/details' + '"><img class="book-list-store" src="/storage/upload_images/images_book/';
+                        html += book.image + '" alt=""></a>' + ' <h2>' + book.price + '</h2>' + ' <p>' + book.name + '</p>';
+                        html += '<a href="javascript:" class="btn btn-default add-to-cart" data-id="' + '33' + '"><i class="fa fa-shopping-cart"></i>Add to cart</a>';
+                        html += '</div></div></div></div>'
+                    });
+                    html += '</div>';
+                    $('div.body-list-book').html(html);
+                    alertify.success('Found ' + data.length + ' books!');
+                } else {
+                    html = '<h2 class="text-center text-danger">No book!</h2>';
+                    $('div.body-list-book').html(html);
+                    alertify.error('Not found!');
+                }
+            },
+            error: function (err) {
+                alertify.error('No data!');
+            }
+        });
+    });
+    //EndCategory
+
+    //SearchMaster
+
+    $('#search-master').keyup(function () {
+        let keyWord = $(this).val();
+        $.ajax({
+            type: "GET",
+            url: origin + '/books/search-page',
+            data: {
+                search: keyWord
+            },
+            success: function (data) {
+                let books = data;
+                html = '<div class="features_items"><h2 class="title text-center">Found ' + books.length +' books</h2>';
+                $.each(books, function (index, book) {
+                    html += '<div class="col-sm-4"><div class="product-image-wrapper"><div class="single-products"><div class="productinfo text-center">';
+                    html += ' <a href="' + '/books/' + book.id + '/details' + '"><img class="book-list-store" src="/storage/upload_images/images_book/';
+                    html += book.image + '" alt=""></a>' + ' <h2>' + book.price + '</h2>' + ' <p>' + book.name + '</p>';
+                    html += '<a href="javascript:" class="btn btn-default add-to-cart" data-id="' + '33' + '"><i class="fa fa-shopping-cart"></i>Add to cart</a>';
+                    html += '</div></div></div></div>'
+                });
+                html += '</div>';
+                $('div.body-list-book').html(html);
+            },
+            error: function () {
+            }
+        });
+    });
+    //EndSerach
+
+    //InputSlider
+    // $('body').on('change', 'input#sl2', function () {
+    //     let value = $('input#sl2').data('slider').getValue();
+    //     console.log(value);
+    // });
+   $('#sl2').slider({
+       range: true,
+       min: 0,
+       max: 100,
+       values: [1, 30],
+       slide: function (event, ui) {
+           let min = $(this).val();
+           // let max = ui.values[1];
+           console.log(min);
+       }
+
+   });
+
+        //EndInputSlider
 
 
 });
