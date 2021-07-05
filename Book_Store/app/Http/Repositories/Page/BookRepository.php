@@ -17,7 +17,7 @@ class BookRepository
 
     public function getAllBooks()
     {
-        return $this->bookModel->with('categories', 'authors')->orderBy('id', 'desc')->get();
+        return $this->bookModel->with('categories', 'authors')->orderBy('id', 'desc')->paginate(6);
     }
     public function recommendBooks()
     {

@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+
     public function dashboard()
     {
+        $this->isPermission('can-view-DashBoard');
         return view('backend.dashboard');
     }
 }

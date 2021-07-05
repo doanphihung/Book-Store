@@ -65,13 +65,39 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            @can('can-view-DashBoard')
-                            <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-user"></i><span style="color: orange">Amin</span></a></li>
-                            @endcan
                             <li><a href="{{route('cart.details')}}"><i class="fa fa-shopping-cart"></i>Cart<span
                                         id="cart-master-icon">@if(session()->has('cart'))
                                             ({{session('cart')->totalQuantity}})@else (0) @endif </span></a></li>
-                            <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+
+                            @if(\Illuminate\Support\Facades\Auth::user())
+                                <li><a href="{{route('checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            @else
+                                <li><a href="{{route('login.showFormLogin')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            @endif
+
+                            @can('can-view-DashBoard')
+                                <li><a href="{{route('admin.dashboard')}}"><i
+                                            class="fa fa-user"></i><span>Amin</span></a></li>
+                            @endcan
+
+                            @if(\Illuminate\Support\Facades\Auth::user())
+                                <li>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle usa"
+                                                data-toggle="dropdown">
+                                            <span
+                                                style="color: orange">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{route('logout')}}">Log out</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            @else
+                                <li><a href="{{route('login.showFormLogin')}}"><i class="fa fa-lock"></i> Login</a></li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -101,7 +127,11 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
+                        @if(Route::is('cart.details') || Route::is('checkout'))
+                        <input type="text" placeholder="Search" id="search-master" style="display: none"/>
+                        @else
                         <input type="text" placeholder="Search" id="search-master"/>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -179,15 +209,6 @@
         </div>
     </div>
 
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-                <p class="pull-right">Designed by <span><a target="_blank"
-                                                           href="http://www.themeum.com">Themeum</a></span></p>
-            </div>
-        </div>
-    </div>
 
 </footer><!--/Footer-->
 @yield('javascript')

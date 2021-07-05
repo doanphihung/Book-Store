@@ -1424,10 +1424,10 @@ h2.title {
 *******login page CSS******
 **************************/
 
-#form {
+#form-login-sigup {
   display: block;
   margin-bottom: 185px;
-  margin-top: 185px;
+  /*margin-top: 185px;*/
   overflow: hidden;
 }
 
@@ -1625,7 +1625,7 @@ h2.title {
 }
 
 .cart_product {
-  display: block;
+  /*display: block;*/
   margin: 15px -70px 10px 25px;
 }
 

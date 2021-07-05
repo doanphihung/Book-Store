@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Page;
 use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Page\BookService;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Session;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -55,7 +56,6 @@ class CartController extends Controller
 
     public function cartQuantityUp($id)
     {
-        $book = $this->bookService->getDetails($id);
         $oldCart = Session('cart') ?? null;
         $newCart = new Cart($oldCart);
         $newCart->cartQuantityUp($id);
@@ -66,7 +66,6 @@ class CartController extends Controller
 
     public function cartQuantityDown($id)
     {
-        $book = $this->bookService->getDetails($id);
         $oldCart = Session('cart') ?? null;
         $newCart = new Cart($oldCart);
         $newCart->cartQuantityDown($id);
@@ -77,11 +76,12 @@ class CartController extends Controller
 
     public function checkout()
     {
+        $payments = Payment::where('status', '=', '1')->get();
         if (Session('cart')) {
             $totalPrice = Session('cart')->totalPrice;
             $totalQuantity = Session('cart')->totalQuantity;
             $headsBook = Session('cart')->headsBook;
-            return view('pages.cart.checkout', compact('totalPrice', 'totalQuantity', 'headsBook'));
+            return view('pages.cart.checkout', compact('totalPrice', 'totalQuantity', 'headsBook', 'payments'));
         } else {
             Toastr::error('Cart is empty!', 'CART');
             return back();

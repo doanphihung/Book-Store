@@ -21,6 +21,7 @@ class AuthorController extends Controller
 
     public function index()
     {
+        $this->isPermission('can-view-DashBoard');
        $authors = $this->authorService->getAll();
        return view('backend.author.list', compact('authors'));
     }
@@ -32,6 +33,8 @@ class AuthorController extends Controller
      */
     public function create()
     {
+        $this->isPermission('admin-manage');
+
         return view('backend.author.create');
     }
 
@@ -43,41 +46,31 @@ class AuthorController extends Controller
      */
     public function store(FormCreateAuthorRequest $request)
     {
+        $this->isPermission('admin-manage');
+
         $this->authorService->create($request);
         return redirect()->route('author.index');
     }
 
-    public function show(Author $author)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Author  $author
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        $this->isPermission('admin-manage');
+
         $author = $this->authorService->findById($id);
         return view('backend.author.edit', compact('author'));
     }
 
     public function update(FormUpdateAuthorRequest $request, $id)
     {
-      $this->authorService->update($request, $id);
+        $this->isPermission('admin-manage');
+
+        $this->authorService->update($request, $id);
       return redirect()->route('author.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Author  $author
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
+        $this->isPermission('admin-manage');
         $this->authorService->destroy($id);
         return redirect()->route('author.index');
     }

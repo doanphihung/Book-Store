@@ -31,4 +31,9 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class, 'book_category', 'book_id', 'category_id');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Book::class, 'order_details', 'book_id', 'order_id');
+    }
 }

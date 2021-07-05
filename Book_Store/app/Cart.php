@@ -56,11 +56,16 @@ class Cart {
 
     public function cartQuantityDown($id)
     {
-        if ($this->headsBook[$id]['quantity'] > 0) {
+        if ($this->headsBook[$id]['quantity'] > 1) {
             $this->headsBook[$id]['quantity']--;
             $this->headsBook[$id]['price'] -= $this->headsBook[$id]['bookInfo']->price;
             $this->totalPrice -= $this->headsBook[$id]['bookInfo']->price;
             $this->totalQuantity--;
+        } else {
+
+            $this->totalQuantity--;
+            $this->totalPrice -= $this->headsBook[$id]['bookInfo']->price;
+            unset($this->headsBook[$id]);
         }
     }
 }

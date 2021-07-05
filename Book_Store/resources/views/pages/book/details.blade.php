@@ -84,12 +84,15 @@
                     <span>${{number_format($book->price)}}</span>
                     <label>Quantity:</label>
                     <input type="text" value="{{$book->amount}}" disabled>
-                    <button type="button" class="btn btn-fefault cart">
-                        <i class="fa fa-shopping-cart">
-                            <a style="background: none;" class="add-to-cart" data-id= {{$book->id}} >Add to cart</a>
-                        </i>
-
-                    </button>
+                                    <button type="button" class="btn btn-fefault cart add-to-cart" data-id = "{{$book->id}}">
+										<i class="fa fa-shopping-cart add"></i>
+										Add to cart
+									</button>
+{{--                    <button type="button" class="btn btn-fefault cart">--}}
+{{--                        <i class="fa fa-shopping-cart " data-id= {{$book->id}} >--}}
+{{--                            Add to cart--}}
+{{--                        </i>--}}
+{{--                    </button>--}}
                 </span>
                                 <p><b>Category:</b>
                                     @forelse($book->categories as $category)

@@ -1,18 +1,23 @@
 <?php
 
+use App\Http\Controllers\Authentication\AuthController;
+use App\Http\Controllers\Authentication\RegisterController;
 use App\Http\Controllers\BackEnd\AuthorController;
 use App\Http\Controllers\BackEnd\BookController;
 use App\Http\Controllers\BackEnd\CategoryController;
 use App\Http\Controllers\BackEnd\AdminController;
+use App\Http\Controllers\BackEnd\OrderController;
 use App\Http\Controllers\Page\CartController;
 use Illuminate\Support\Facades\Route;
 
 
 
 
-Route::get('/login', [\App\Http\Controllers\Authentication\AuthController::class, 'showFormLogin'])->name('login.showFormLogin');
-Route::post('/login', [\App\Http\Controllers\Authentication\AuthController::class, 'login'])->name('login.submit');
-Route::get('/get', [\App\Http\Controllers\Authentication\AuthController::class, 'logout'])->name('logout');
+//Authenticaion
+Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login.showFormLogin');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/signup', [RegisterController::class, 'signup'])->name('signup');
 
 
 // BACKEND
@@ -74,7 +79,8 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('/{id}/quantity-up', [CartController::class, 'cartQuantityUp'])->name('cart.quantity-up');
     Route::get('/{id}/quantity-down', [CartController::class, 'cartQuantityDown'])->name('cart.quantity-down');
 });
-Route::get('/checkout', [\App\Http\Controllers\Page\CartController::class, 'checkout'])->name('checkout');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('auth');
+Route::post('/checkout', [OrderController::class, 'saveOrder'])->name('save-order');
 
 
 

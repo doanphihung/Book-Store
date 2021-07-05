@@ -30,6 +30,7 @@ class BookController extends Controller
 
     public function index()
     {
+        $this->isPermission('can-view-DashBoard');
         $books = $this->bookService->getAll();
         $categories = Category::all();
         return view('backend.book.list', compact('books', 'categories'));
@@ -62,8 +63,8 @@ class BookController extends Controller
                 $bookAuthorIds = [];
                 $bookCategoryIds = [];
                 $book = $this->bookService->getById($id);
-                $authors = $this->authorService->getAll();
-                $categories = $this->categoryService->getAll();
+                $authors = Author::all();
+                $categories = Category::all();
                 // Đổ lại dữ liệu multi select
                 foreach ($book->authors as $author) {
                     $bookAuthorIds[] = $author->id;
@@ -113,7 +114,7 @@ class BookController extends Controller
 
         public function search(Request $request)
         {
-
+            $this->isPermission('can-view-DashBoard');
             $keyWord = $request->get('search');
             $data = $this->bookService->search($keyWord);
             return response()->json($data);
@@ -121,6 +122,7 @@ class BookController extends Controller
 
         public function filter(Request $request)
         {
+            $this->isPermission('can-view-DashBoard');
             $books = $this->categoryService->filterByCategory($request);
             $categories = Category::all();
             $totalBooksFiltered = count($books);
