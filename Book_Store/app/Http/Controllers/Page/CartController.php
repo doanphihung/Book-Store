@@ -76,8 +76,8 @@ class CartController extends Controller
 
     public function checkout()
     {
-        $payments = Payment::where('status', '=', '1')->get();
         if (Session('cart')) {
+            $payments = Payment::where('status', '=', '1')->get();
             $totalPrice = Session('cart')->totalPrice;
             $totalQuantity = Session('cart')->totalQuantity;
             $headsBook = Session('cart')->headsBook;

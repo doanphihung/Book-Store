@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authentication\AuthController;
+use App\Http\Controllers\Authentication\ForgotPasswordController;
 use App\Http\Controllers\Authentication\RegisterController;
 use App\Http\Controllers\BackEnd\AuthorController;
 use App\Http\Controllers\BackEnd\BookController;
@@ -8,16 +9,23 @@ use App\Http\Controllers\BackEnd\CategoryController;
 use App\Http\Controllers\BackEnd\AdminController;
 use App\Http\Controllers\BackEnd\OrderController;
 use App\Http\Controllers\Page\CartController;
+use App\Http\Controllers\Page\LangController;
 use Illuminate\Support\Facades\Route;
 
 
-
+//Language
+Route::get('/language/{language}', [LangController::class, 'setLanguage'])->name('lang.setLanguage');
 
 //Authenticaion
 Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login.showFormLogin');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/signup', [RegisterController::class, 'signup'])->name('signup');
+Route::post('/forget-password', [ForgotPasswordController::class, 'sendMailForgetPassword'])->name('forgot.send-mail');
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showFormResetPassword'])->name('forgot.showFormResetPassword');
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('reset-password');
+
+
 
 
 // BACKEND
@@ -57,7 +65,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
 
 // PAGE
-Route::get('/', [\App\Http\Controllers\Page\BookController::class, 'homepage'])->name('store.homepage');
+Route::get('/', [\App\Http\Controllers\Page\BookController::class, 'homepage'])->name('store.homepage')->middleware('locale');
 Route::group(['prefix' => 'books'], function () {
     Route::get('/', [\App\Http\Controllers\Page\BookController::class, 'getAllBooks'])->name('store.list');
     Route::get('/{id}/details', [\App\Http\Controllers\Page\BookController::class, 'getDetails'])->name('book.getDetails');
@@ -81,6 +89,7 @@ Route::group(['prefix' => 'cart'], function () {
 });
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::post('/checkout', [OrderController::class, 'saveOrder'])->name('save-order');
+Route::get('/order-bill', [OrderController::class, 'getBill'])->name('getBill');
 
 
 

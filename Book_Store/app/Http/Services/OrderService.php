@@ -27,6 +27,10 @@ class OrderService
         $order->payment_id = $request->payment_id;
         $order->status = 'Pending';
         $this->orderRepo->saveOrder($order);
+    }
 
+    public function findOrderById($orderId)
+    {
+        return $this->orderRepo->findOrderById($orderId);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Page;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Page\AuthorService;
-use Illuminate\Http\Request;
+
 
 class AuthorController extends Controller
 {

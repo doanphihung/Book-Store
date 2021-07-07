@@ -4,9 +4,7 @@ namespace App\Http\Controllers\BackEnd;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\OrderService;
-use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -16,9 +14,18 @@ class OrderController extends Controller
     {
         $this->orderService = $orderService;
     }
+
     public function saveOrder(Request $request)
     {
         $this->orderService->saveOrder($request);
-//        return back();
+        return redirect()->route('getBill');
+    }
+
+    public function getBill()
+    {
+        $orderId = session()->get('orderId');
+        $order = $this->orderService->findOrderById($orderId);
+       return view('pages.bill.bill-payment', compact('order'));
+
     }
 }

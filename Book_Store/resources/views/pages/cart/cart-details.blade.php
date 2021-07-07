@@ -92,11 +92,7 @@
                                         $ 0 @endif</span></li>
                         </ul>
                         <a class="btn btn-default update" onclick="window.location.reload();">Update</a>
-                        @if(\Illuminate\Support\Facades\Auth::user())
                             <a class="btn btn-default check_out" href="{{route('checkout')}}">Check Out</a>
-                        @else
-                            <a class="btn btn-default check_out" href="{{route('login.showFormLogin')}}">Check Out</a>
-                        @endif
                     </div>
                 </div>
             </div>

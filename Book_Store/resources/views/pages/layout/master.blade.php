@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="shortcut icon" href="https://pngimage.net/wp-content/uploads/2018/05/book-store-png-6.png">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link href="{{asset('page/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -17,11 +18,9 @@
     <link href="{{asset('page/css/responsive.css')}}" rel="stylesheet">
     <link href="{{asset('page/css/style.css')}}" rel="stylesheet">
 
-<!--[if lt IE 9]>
     <script src="{{asset('page/js/html5shiv.js')}}"></script>
     <script src="{{asset('page/js/respond.min.js')}}"></script>
-    <![endif]-->
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
+
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
           href="{{asset('/page/images/ico/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114"
@@ -50,12 +49,12 @@
                     <div class="btn-group pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                Language
+                                @lang('homepage.language')
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">EN</a></li>
-                                <li><a href="#">VI</a></li>
+                                <li><a href="{{route('lang.setLanguage', 'en')}}">EN</a></li>
+                                <li><a href="{{route('lang.setLanguage', 'vi')}}">VI</a></li>
                             </ul>
                         </div>
                     </div>
@@ -65,19 +64,19 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="{{route('cart.details')}}"><i class="fa fa-shopping-cart"></i>Cart<span
+                            <li><a href="{{route('cart.details')}}"><i class="fa fa-shopping-cart"></i>@lang('homepage.cart')<span
                                         id="cart-master-icon">@if(session()->has('cart'))
                                             ({{session('cart')->totalQuantity}})@else (0) @endif </span></a></li>
 
                             @if(\Illuminate\Support\Facades\Auth::user())
-                                <li><a href="{{route('checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                <li><a href="{{route('checkout')}}"><i class="fa fa-crosshairs"></i> @lang('homepage.checkout')</a></li>
                             @else
-                                <li><a href="{{route('login.showFormLogin')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                <li><a href="{{route('login.showFormLogin')}}"><i class="fa fa-crosshairs"></i> @lang('homepage.checkout')</a></li>
                             @endif
 
                             @can('can-view-DashBoard')
                                 <li><a href="{{route('admin.dashboard')}}"><i
-                                            class="fa fa-user"></i><span>Amin</span></a></li>
+                                            class="fa fa-user"></i><span>@lang('homepage.admin')</span></a></li>
                             @endcan
 
                             @if(\Illuminate\Support\Facades\Auth::user())
@@ -90,12 +89,12 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{route('logout')}}">Log out</a></li>
+                                            <li><a href="{{route('logout')}}">@lang('homepage.logout')</a></li>
                                         </ul>
                                     </div>
                                 </li>
                             @else
-                                <li><a href="{{route('login.showFormLogin')}}"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="{{route('login.showFormLogin')}}"><i class="fa fa-lock"></i> @lang('homepage.login')</a></li>
                             @endif
 
                         </ul>
@@ -120,17 +119,17 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="{{route('store.homepage')}}">Home</a></li>
-                            <li><a href="{{route('store.list')}}">Shop</a></li>
+                            <li><a href="{{route('store.homepage')}}">@lang('homepage.home')</a></li>
+                            <li><a href="{{route('store.list')}}">@lang('homepage.shop')</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
                         @if(Route::is('cart.details') || Route::is('checkout'))
-                        <input type="text" placeholder="Search" id="search-master" style="display: none"/>
+                        <input type="text" style="display: none"/>
                         @else
-                        <input type="text" placeholder="Search" id="search-master"/>
+                        <input type="text" placeholder="@lang('homepage.search')" id="search-master"/>
                         @endif
                     </div>
                 </div>
@@ -210,7 +209,8 @@
     </div>
 
 
-</footer><!--/Footer-->
+</footer>
+<!--/Footer-->
 @yield('javascript')
 {{--<script src="{{asset('page/js/jquery.js')}}"></script>--}}
 <script src="{{asset('page/js/bootstrap.min.js')}}"></script>
@@ -230,6 +230,7 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 {{--ENDalert--}}
 </body>
+@yield('modal')
 @jquery
 @toastr_js
 @toastr_render

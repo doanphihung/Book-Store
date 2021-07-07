@@ -23,6 +23,7 @@ class OrderRepository
         DB::beginTransaction();
         try {
             $order->save();
+            session()->put('orderId', $order->id);   // Lấy ID để tìm đơn hàng in ra bill
             if (session('cart')) {
         $headsBook = session()->get('cart')->headsBook;
                 foreach ($headsBook as $key => $headBook) {
@@ -46,5 +47,10 @@ class OrderRepository
             Toastr::error('Ordered Fail!', 'Fail');
 
         }
+    }
+
+    public function findOrderById($orderId)
+    {
+        return $this->orderModel->with('books', 'payment', 'user')->findOrFail($orderId);
     }
 }

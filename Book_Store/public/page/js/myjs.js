@@ -212,6 +212,7 @@ $(document).ready(function () {
     });
     //EndSerach
 
+
     //InputSlider
     // $('body').on('change', 'input#sl2', function () {
     //     let value = $('input#sl2').data('slider').getValue();

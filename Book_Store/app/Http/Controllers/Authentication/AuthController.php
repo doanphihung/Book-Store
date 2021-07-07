@@ -18,7 +18,7 @@ class AuthController extends Controller
             Toastr::success('Login', 'Bạn đã đăng nhập');
             return back();
         }
-        return view('form-login');
+        return view('Auth.form-login');
     }
 
     public function login(FormLoginRequest $request)
@@ -38,7 +38,7 @@ class AuthController extends Controller
                 return redirect()->route('store.homepage');
             }
         }
-        session()->flash('login-error', 'Tài khoản hoặc mật khẩu không chính xác!');
+        session()->flash('login-error', 'Incorrect account or password!');
         return redirect()->route('login.showFormLogin');
     }
 
