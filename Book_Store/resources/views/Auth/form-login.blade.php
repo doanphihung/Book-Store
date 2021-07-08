@@ -27,8 +27,9 @@
 								<input type="checkbox" class="checkbox">
 								Keep me signed in
 							</span>
-{{--                            <a style="float: right" href="{{route('form-forgotPassword')}}"><i>Forgot password?</i></a>--}}
-                            <a style="float: right" data-toggle="modal" data-target="#modalLoginForm"><i>Forgot password?</i></a>
+                            {{--                            <a style="float: right" href="{{route('form-forgotPassword')}}"><i>Forgot password?</i></a>--}}
+                            <a style="float: right" data-toggle="modal" data-target="#modalLoginForm"><i>Forgot
+                                    password?</i></a>
                             <button type="submit" class="btn btn-default">Login</button>
                         </form>
 
@@ -65,8 +66,12 @@
                             <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
                             @enderror
                             <input type="text" placeholder="Address" name="address">
-                            <input type="file" name="avatar">
-                            <small class="form-text text-muted text-danger"><i>(*)Bạn phải nhập đầy đủ</i></small>
+                            @error('avatar')
+                            <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
+                            @enderror
+                            <input type="file" name="avatar" onchange="loadImg()">
+                            <img src="" alt="" id="avatar-signup" width="100px">
+                            <div><small class="form-text text-muted text-danger"><i>(*)Bạn phải nhập đầy đủ</i></small></div>
                             <button style="margin-top: 15px " type="submit" class="btn btn-default">Signup</button>
                         </form>
                     </div><!--/sign up form-->
@@ -74,6 +79,13 @@
             </div>
         </div>
     </section>
+@endsection
+@section('javascript')
+    <script type="text/javascript">
+        function loadImg(){
+            $('#avatar-signup').attr('src', URL.createObjectURL(event.target.files[0]));
+        }
+    </script>
 @endsection
 @section('modal')
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -88,23 +100,26 @@
                 </div>
                 <form action="{{route('forgot.send-mail')}}" method="post">
                     @csrf
-                <div class="modal-body mx-3">
-                    @error('email')
-                    <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
-                    @enderror
-                    <div class="md-form mb-5">
-                        <i class="fas fa-envelope prefix grey-text"></i>
-                        <input type="email" id="defaultForm-email" class="form-control validate" placeholder="Your email" name="email">
+                    <div class="modal-body mx-3">
+                        @error('email')
+                        <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
+                        @enderror
+                        <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="email" id="defaultForm-email" class="form-control validate"
+                                   placeholder="Your email" name="email">
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" style="background: orange" class="btn btn-secondary">Recover account</button>
-                </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" style="background: orange" class="btn btn-secondary">Recover account
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 @endsection
+
 
 
 

@@ -29,7 +29,7 @@ class AuthController extends Controller
             'email' => $email,
             'password' => $password
         ];
-        if (Auth::attempt($data)) {
+        if (Auth::attempt($data)) {  
             if (Gate::allows('can-view-DashBoard', Auth::user())) {
                 Toastr::success('Welcome ' . Auth::user()->name . '!');
                 return redirect()->route('admin.dashboard');

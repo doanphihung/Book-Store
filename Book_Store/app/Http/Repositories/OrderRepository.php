@@ -41,7 +41,7 @@ class OrderRepository
                 session()->forget('cart');
             }
             DB::commit();
-            Toastr::success('Ordered success!', 'Success');
+            session()->flash('orderSuccess', 'Order success!');
         } catch (\Exception $e) {
             DB::rollBack();
             Toastr::error('Ordered Fail!', 'Fail');
@@ -52,5 +52,10 @@ class OrderRepository
     public function findOrderById($orderId)
     {
         return $this->orderModel->with('books', 'payment', 'user')->findOrFail($orderId);
+    }
+
+    public function getAll()
+    {
+        return $this->orderModel->with('books', 'payment', 'user')->paginate(10);
     }
 }

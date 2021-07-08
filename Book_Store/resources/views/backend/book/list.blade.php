@@ -159,20 +159,6 @@
         </div>
             </div>
 @endsection
-{{--   $.ajax({--}}
-{{--        url: url,--}}
-{{--        type: "get",--}}
-{{--        data: {'id': id},--}}
-{{--        success: function (res) {--}}
-{{--         console.log(res)--}}
-{{--        },--}}
-{{--        error: function(e){--}}
-{{--        alert('fuck')--}}
-{{--        }--}}
-{{--   });--}}
-{{--   });--}}
-{{--    </script>--}}
 
-{{--    END AJAX DELETE--}}
 
 

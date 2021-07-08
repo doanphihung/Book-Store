@@ -130,7 +130,7 @@ $(document).ready(function () {
                     $.each(books, function (index, book) {
                         html += '<div class="col-sm-4"><div class="product-image-wrapper"><div class="single-products"><div class="productinfo text-center">';
                         html += ' <a href="' + '/books/' + book.id + '/details' + '"><img class="book-list-store" src="/storage/upload_images/images_book/';
-                        html += book.image + '" alt=""></a>' + ' <h2>' + book.price + '</h2>' + ' <p>' + book.name + '</p>';
+                        html += book.image + '" alt=""></a>' + ' <h2>' + '$' + book.price + '</h2>' + ' <p>' + book.name + '</p>';
                         html += '<a href="javascript:" class="btn btn-default add-to-cart" data-id="' + '33' + '"><i class="fa fa-shopping-cart"></i>Add to cart</a>';
                         html += '</div></div></div></div>'
                     });
@@ -163,7 +163,7 @@ $(document).ready(function () {
                     $.each(books, function (index, book) {
                         html += '<div class="col-sm-4"><div class="product-image-wrapper"><div class="single-products"><div class="productinfo text-center">';
                         html += ' <a href="' + '/books/' + book.id + '/details' + '"><img class="book-list-store" src="/storage/upload_images/images_book/';
-                        html += book.image + '" alt=""></a>' + ' <h2>' + book.price + '</h2>' + ' <p>' + book.name + '</p>';
+                        html += book.image + '" alt=""></a>' + ' <h2>' + '$' + book.price + '</h2>' + ' <p>' + book.name + '</p>';
                         html += '<a href="javascript:" class="btn btn-default add-to-cart" data-id="' + '33' + '"><i class="fa fa-shopping-cart"></i>Add to cart</a>';
                         html += '</div></div></div></div>'
                     });
@@ -218,18 +218,14 @@ $(document).ready(function () {
     //     let value = $('input#sl2').data('slider').getValue();
     //     console.log(value);
     // });
-    $('#sl2').slider({
-        range: true,
-        min: 0,
-        max: 100,
-        values: [1, 30],
-        slide: function (event, ui) {
-            let min = $(this).val();
-            // let max = ui.values[1];
-            console.log(min);
-        }
-
+    $('#price-manger').change(function () {
+        console.log(1);
+       let value = $(this).attr('data-slider-value');
+        console.log(value);
     });
+
+
+
 
     //EndInputSlider
 

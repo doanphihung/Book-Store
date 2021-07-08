@@ -16,32 +16,47 @@
                             <p>Shopper Information</p>
                             <form action="{{route('save-order')}}" method="post">
                                 @csrf
+                                @error('name')
+                                <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
+                                @enderror
                                 <input type="text" placeholder="Display Name" name="name"
                                        @if(old('name'))
                                        value="{{old('name')}}"
                                        @else
                                        value="{{\Illuminate\Support\Facades\Auth::user()->name}}"
                                     @endif >
+                                @error('phone')
+                                <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
+                                @enderror
                                 <input type="text" placeholder="Phone" name="phone"
                                        @if(old('phone'))
                                        value="{{old('phone')}}"
                                        @else
                                        value="{{\Illuminate\Support\Facades\Auth::user()->phone}}"
                                     @endif >
+                                @error('address')
+                                <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
+                                @enderror
                                 <input type="text" placeholder="Address" name="address"
                                        @if(old('address'))
                                        value="{{old('address')}}"
                                        @else
                                        value="{{\Illuminate\Support\Facades\Auth::user()->address}}"
                                     @endif >
+                                @error('payment_id')
+                                <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
+                                @enderror
                                 <select name ='payment_id'>
                                     <option disabled selected>-- Payment methods --</option>
                                     @forelse($payments as $key => $payment)
                                     <option value="{{$payment->id}}">{{$payment->method}}</option>
                                     @empty
-                                    <option class="text-danger">No option</option>
+                                    <option class="text-danger">No option!</option>
                                     @endforelse
                                 </select>
+                                @error('note')
+                                <small class="form-text text-muted text-danger"><i>*{{$message}}</i></small>
+                                @enderror
                                 <textarea style="margin-top: 10px" cols="4" placeholder=" Notes about your order"
                                           name="note">@if(old('note')){{old('note')}}@endif</textarea>
                                 <a class="btn btn-danger" style="margin-top: 15px" href="{{route('cart.details')}}">Cancel</a>

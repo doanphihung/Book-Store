@@ -62,6 +62,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/{id}/edit', [CategoryController::class, 'update'])->name('category.update');
         Route::get('/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     });
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', [OrderController::class, 'index'])->name('order.index');
+    });
 });
 
 // PAGE

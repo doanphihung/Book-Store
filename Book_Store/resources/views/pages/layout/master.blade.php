@@ -211,7 +211,6 @@
 
 </footer>
 <!--/Footer-->
-@yield('javascript')
 {{--<script src="{{asset('page/js/jquery.js')}}"></script>--}}
 <script src="{{asset('page/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('page/js/jquery.scrollUp.min.js')}}"></script>
@@ -229,6 +228,7 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 {{--ENDalert--}}
+@yield('javascript')
 </body>
 @yield('modal')
 @jquery

@@ -34,14 +34,20 @@ class CartController extends Controller
     public function cartDetails()
     {
         if (Session('cart')) {
-            $totalPrice = Session('cart')->totalPrice;
-            $totalQuantity = Session('cart')->totalQuantity;
-            $headsBook = Session('cart')->headsBook;
-            return view('pages.cart.cart-details', compact('totalPrice', 'totalQuantity', 'headsBook'));
+            if (Session::get('cart')->totalQuantity) {
+                $totalPrice = Session('cart')->totalPrice;
+                $totalQuantity = Session('cart')->totalQuantity;
+                $headsBook = Session('cart')->headsBook;
+                return view('pages.cart.cart-details', compact('totalPrice', 'totalQuantity', 'headsBook'));
+            } else {
+                Toastr::error('Cart is empty!', 'CART');
+                return back();
+            }
         } else {
             Toastr::error('Cart is empty!', 'CART');
-            return view('pages.cart.cart-details');
+            return back();
         }
+
     }
 
     public function deleteHeadBook($id)
@@ -77,11 +83,16 @@ class CartController extends Controller
     public function checkout()
     {
         if (Session('cart')) {
-            $payments = Payment::where('status', '=', '1')->get();
-            $totalPrice = Session('cart')->totalPrice;
-            $totalQuantity = Session('cart')->totalQuantity;
-            $headsBook = Session('cart')->headsBook;
-            return view('pages.cart.checkout', compact('totalPrice', 'totalQuantity', 'headsBook', 'payments'));
+            if (Session::get('cart')->totalQuantity) {
+                $payments = Payment::where('status', '=', '1')->get();
+                $totalPrice = Session('cart')->totalPrice;
+                $totalQuantity = Session('cart')->totalQuantity;
+                $headsBook = Session('cart')->headsBook;
+                return view('pages.cart.checkout', compact('totalPrice', 'totalQuantity', 'headsBook', 'payments'));
+            } else {
+                Toastr::error('Cart is empty!', 'CART');
+                return redirect()->route('store.homepage');
+            }
         } else {
             Toastr::error('Cart is empty!', 'CART');
             return back();

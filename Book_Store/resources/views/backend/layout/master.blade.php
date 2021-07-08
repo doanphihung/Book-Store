@@ -210,9 +210,9 @@
                         </li>
 
                         <li>
-                            <a href="" aria-expanded="false">
-                                <i class="metismenu-icon pe-7s-display2"></i>
-                                Tables
+                            <a href="{{route('order.index')}}" aria-expanded="false">
+                                <i class="metismenu-icon pe-7s-note2"></i>
+                                Order
                             </a>
                         </li>
                     </ul>

@@ -8,7 +8,7 @@
     <title>Reset password</title>
 </head>
 <body>
-<p>Link reset password: <a href="{{route('forgot.showFormResetPassword', $token)}}"><i>Click here!</i></a></p>
+<p><a href="{{route('forgot.showFormResetPassword', $token)}}"><i>Click here!</i></a>to change your password!</p>
 
 </body>
 </html>

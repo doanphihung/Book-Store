@@ -33,4 +33,9 @@ class OrderService
     {
         return $this->orderRepo->findOrderById($orderId);
     }
+
+    public function getAll()
+    {
+        return $this->orderRepo->getAll();
+    }
 }

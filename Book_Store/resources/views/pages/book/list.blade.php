@@ -47,9 +47,9 @@
                                     <div class="panel-body">
                                         <ul>
                                             @forelse($categoriesMaster as $category)
-                                                <li><a  class="category-nav-choose"
-                                                        data-id = "{{$category->id}}"
-                                                        href="javascript:">{{$category->name}}</a></li>
+                                                <li><a class="category-nav-choose"
+                                                       data-id="{{$category->id}}"
+                                                       href="javascript:">{{$category->name}}</a></li>
                                             @empty
                                                 <li class="text-danger">No data!</li>
                                             @endforelse
@@ -62,9 +62,9 @@
                         <div class="price-range"><!--price-range-->
                             <h2>Price Range</h2>
                             <div class="well text-center">
-                                <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                       data-slider-step="5" data-slider-value="[10, 100]" id="sl2"><br/>
-                                <b class="pull-left">$ 0</b> <b class="pull-right"> $ 600</b>
+                                <input type="ranger" class="span2" value="" data-slider-min="0" data-slider-max="100"
+                                       data-slider-step="5" data-slider-value="[10, 50]" id="sl2"><br/>
+                                <b class="pull-left">$ 0</b> <b class="pull-right"> $ 100</b>
                             </div>
                         </div><!--/price-range-->
 
@@ -98,15 +98,6 @@
                         @endforelse
                     </div>
                     {{ $books->appends(request()->query()) }}
-
-                    {{--                    <div>--}}
-{{--                        <ul class="pagination">--}}
-{{--                            <li class="active"><a href="">1</a></li>--}}
-{{--                            <li><a href="">2</a></li>--}}
-{{--                            <li><a href="">3</a></li>--}}
-{{--                            <li><a href="">»</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
                 </div>
             </div>
         </div>
